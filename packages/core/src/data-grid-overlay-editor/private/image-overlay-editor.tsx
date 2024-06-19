@@ -5,7 +5,7 @@ import { EditPencil } from "../../common/utils";
 
 /** @category Types */
 export interface OverlayImageEditorProps {
-    readonly urls: readonly string[];
+    readonly url: string;
     readonly canWrite: boolean;
     readonly onCancel: () => void;
     readonly onChange: (newImage: string) => void;
@@ -15,15 +15,15 @@ export interface OverlayImageEditorProps {
 
 /** @category Renderers */
 export const ImageOverlayEditor: React.FunctionComponent<OverlayImageEditorProps> = p => {
-    const { urls, canWrite, onEditClick, renderImage } = p;
+    const { url, canWrite, onEditClick, renderImage } = p;
 
-    const filtered = urls.filter(u => u !== "");
-
-    if (filtered.length === 0) {
+    if (url.length === 0) {
         return null;
     }
 
-    const allowMove = filtered.length > 1;
+
+    const allowMove = url.length > 1;
+    
     return (
         <ImageOverlayEditorStyle data-testid="GDG-default-image-overlay-editor">
             <Carousel
@@ -32,17 +32,14 @@ export const ImageOverlayEditor: React.FunctionComponent<OverlayImageEditorProps
                 swipeable={allowMove}
                 emulateTouch={allowMove}
                 infiniteLoop={allowMove}>
-                {filtered.map(url => {
-                    const innerContent = renderImage?.(url) ?? <img draggable={false} src={url} />;
-                    return (
-                        <div className="centering-container" key={url}>
-                            {innerContent}
-                        </div>
-                    );
-                })}
+                {
+                    [<div className="gdg-centering-container" key={url}>
+                        {renderImage?.(url) ?? <img draggable={false} src={url} />}
+                    </div>]
+                }
             </Carousel>
             {canWrite && onEditClick && (
-                <button className="edit-icon" onClick={onEditClick}>
+                <button className="gdg-edit-icon" onClick={onEditClick}>
                     <EditPencil />
                 </button>
             )}

@@ -19,7 +19,7 @@ describe("data-grid-overlay", () => {
     test("Smoke test image overlay", async () => {
         const spy = jest.fn();
 
-        render(<ImageOverlayEditor canWrite={false} onCancel={spy} onChange={spy} urls={["https://www.google.com"]} />);
+        render(<ImageOverlayEditor canWrite={false} onCancel={spy} onChange={spy} url={"https://www.google.com"} />);
     });
 
     test("Smoke test markdown overlay", async () => {

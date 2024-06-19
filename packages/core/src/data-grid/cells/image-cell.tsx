@@ -6,7 +6,7 @@ import { GridCellKind, ImageCell } from "../data-grid-types";
 import type { InternalCellRenderer } from "./cell-types";
 
 export const imageCellRenderer: InternalCellRenderer<ImageCell> = {
-    getAccessibilityString: c => c.data.join(", "),
+    getAccessibilityString: c => c.data,
     kind: GridCellKind.Image,
     needsHover: false,
     useLabel: false,
@@ -15,22 +15,21 @@ export const imageCellRenderer: InternalCellRenderer<ImageCell> = {
     measure: (_ctx, cell) => cell.data.length * 50,
     onDelete: c => ({
         ...c,
-        data: [],
+        data: "",
     }),
     provideEditor: () => p => {
         const { value, onFinishedEditing, imageEditorOverride } = p;
 
         const ImageEditor = imageEditorOverride ?? ImageOverlayEditor;
-
         return (
             <ImageEditor
-                urls={value.data}
+                url={value.data}
                 canWrite={value.allowAdd}
                 onCancel={onFinishedEditing}
                 onChange={newImage => {
                     onFinishedEditing({
                         ...value,
-                        data: [newImage],
+                        data: newImage,
                     });
                 }}
             />
@@ -38,22 +37,15 @@ export const imageCellRenderer: InternalCellRenderer<ImageCell> = {
     },
     onPaste: (toPaste, cell) => {
         toPaste = toPaste.trim();
-        const fragments = toPaste.split(",");
-        const uris = fragments
-            .map(f => {
-                try {
-                    new URL(f);
-                    return f;
-                } catch {
-                    return undefined;
-                }
-            })
-            .filter(x => x !== undefined) as string[];
-
-        if (uris.length === cell.data.length && uris.every((u, i) => u === cell.data[i])) return undefined;
-        return {
-            ...cell,
-            data: uris,
-        };
+        try {
+            new URL(toPaste);
+            if (toPaste === cell.data) return undefined;
+            return {
+                ...cell,
+                data: toPaste,
+            };
+        } catch {
+            return undefined;
+        }
     },
 };

@@ -169,11 +169,12 @@ function clearCell(cell: GridCell): GridCell {
                 data: false,
             };
         }
+        case GridCellKind.Text:
         case GridCellKind.Image: {
             return {
                 ...cell,
-                data: [],
-                displayData: [],
+                data: "",
+                displayData: "",
             };
         }
         case GridCellKind.Drilldown:
@@ -188,13 +189,6 @@ function clearCell(cell: GridCell): GridCell {
             return {
                 ...cell,
                 data: "",
-            };
-        }
-        case GridCellKind.Text: {
-            return {
-                ...cell,
-                data: "",
-                displayData: "",
             };
         }
         case GridCellKind.Number: {
@@ -1533,7 +1527,7 @@ function getColumnsForCellTypes(): GridColumnWithMockingInfo[] {
             getContent: () => {
                 return {
                     kind: GridCellKind.Image,
-                    data: [`${faker.image.animals(40, 40)}?random=${faker.datatype.number(100_000)}`],
+                    data: `${faker.image.animals(40, 40)}?random=${faker.datatype.number(100_000)}`,
                     allowOverlay: true,
                     allowAdd: false,
                     readonly: true,
@@ -3507,7 +3501,7 @@ export const DropEvents: React.VFC = () => {
                 cell,
                 {
                     kind: GridCellKind.Image,
-                    data: [imgUrl],
+                    data: imgUrl,
                     allowOverlay: true,
                     allowAdd: false,
                 },

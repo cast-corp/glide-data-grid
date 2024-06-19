@@ -1005,29 +1005,27 @@ export function drawDrilldownCell(args: BaseDrawArgs, data: readonly DrilldownCe
     }
 }
 
-export function drawImage(args: BaseDrawArgs, data: readonly string[], rounding: number = 4) {
+export function drawImage(args: BaseDrawArgs, data: string, rounding: number = 4) {
     const { rect, col, row, theme, ctx, imageLoader } = args;
     const { x, y, height: h } = rect;
     let drawX = x + theme.cellHorizontalPadding;
-    for (const i of data) {
-        if (i.length === 0) continue;
-        const img = imageLoader.loadOrGetImage(i, col, row);
+    if (data.length === 0) return;
+    const img = imageLoader.loadOrGetImage(data, col, row);
 
-        if (img !== undefined) {
-            const imgHeight = h - theme.cellVerticalPadding * 2;
-            const imgWidth = img.width * (imgHeight / img.height);
-            if (rounding > 0) {
-                roundedRect(ctx, drawX, y + theme.cellVerticalPadding, imgWidth, imgHeight, rounding);
-                ctx.save();
-                ctx.clip();
-            }
-            ctx.drawImage(img, drawX, y + theme.cellVerticalPadding, imgWidth, imgHeight);
-            if (rounding > 0) {
-                ctx.restore();
-            }
-
-            drawX += imgWidth + itemMargin;
+    if (img !== undefined) {
+        const imgHeight = h - theme.cellVerticalPadding * 2;
+        const imgWidth = img.width * (imgHeight / img.height);
+        if (rounding > 0) {
+            roundedRect(ctx, drawX, y + theme.cellVerticalPadding, imgWidth, imgHeight, rounding);
+            ctx.save();
+            ctx.clip();
         }
+        ctx.drawImage(img, drawX, y + theme.cellVerticalPadding, imgWidth, imgHeight);
+        if (rounding > 0) {
+            ctx.restore();
+        }
+
+        drawX += imgWidth + itemMargin;
     }
 }
 

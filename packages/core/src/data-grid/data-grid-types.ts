@@ -1,5 +1,5 @@
 import type { Theme } from "../common/styles";
-import { assertNever, proveType } from "../common/support";
+import {  proveType } from "../common/support";
 import has from "lodash/has.js";
 import type React from "react";
 import type { CSSProperties } from "react";
@@ -352,7 +352,8 @@ export function isReadWriteCell(cell: GridCell): cell is ReadWriteGridCell {
     ) {
         return cell.readonly !== true;
     }
-    assertNever(cell);
+    return false;
+    // assertNever(cell);
 }
 
 /** @category Cells */
@@ -421,9 +422,9 @@ export interface NumberCell extends BaseGridCell {
 /** @category Cells */
 export interface ImageCell extends BaseGridCell {
     readonly kind: GridCellKind.Image;
-    readonly data: string[];
+    readonly data: string;
     readonly rounding?: number;
-    readonly displayData?: string[]; // used for small images for faster scrolling
+    readonly displayData?: string; // used for small images for faster scrolling
     readonly allowAdd: boolean;
 }
 

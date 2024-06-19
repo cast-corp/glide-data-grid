@@ -238,6 +238,7 @@ export function copyToClipboard(
         const colIndex = columnIndexes[index];
         if (cell.span !== undefined && cell.span[0] !== colIndex) return "";
         switch (cell.kind) {
+            
             case GridCellKind.Text:
             case GridCellKind.Number:
                 return escape(raw ? cell.data?.toString() ?? "" : cell.displayData);
@@ -245,7 +246,6 @@ export function copyToClipboard(
             case GridCellKind.RowID:
             case GridCellKind.Uri:
                 return escape(cell.data);
-            case GridCellKind.Image:
             case GridCellKind.Bubble:
                 return cell.data.reduce((pv, cv) => `${escape(pv)},${escape(cv)}`);
             case GridCellKind.Boolean:
@@ -258,6 +258,9 @@ export function copyToClipboard(
                 return cell.data.map(i => i.text).reduce((pv, cv) => `${escape(pv)},${escape(cv)}`);
             case GridCellKind.Custom:
                 return escape(cell.copyData);
+            case GridCellKind.Image:
+                return cell.data;
+            
             default:
                 assertNever(cell);
         }

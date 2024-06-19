@@ -28,7 +28,7 @@ function get2dContext(): CanvasRenderingContext2D {
 const getImgCell = (): ImageCell => {
     return {
         kind: GridCellKind.Image,
-        data: ["img1.jpg", "img2.jpg"],
+        data: "img1.jpg",
         allowAdd: true,
         allowOverlay: true,
     };
@@ -40,7 +40,7 @@ describe("Image cell", () => {
     it("Renders the right accessibilty string", async () => {
         const cell = getImgCell();
         const accessibilityString = imageCellRenderer.getAccessibilityString(cell);
-        expect(accessibilityString).toBe("img1.jpg, img2.jpg");
+        expect(accessibilityString).toBe("img1.jpg");
     });
 
     it("Measures a reasonable size", async () => {

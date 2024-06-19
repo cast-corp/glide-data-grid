@@ -39,7 +39,9 @@ export function lossyCopyData<T extends EditableGridCell>(source: EditableGridCe
         };
     } else
         switch (target.kind) {
-            case GridCellKind.Uri: {
+            case GridCellKind.Uri:
+                case GridCellKind.Image:    
+            {
                 if (isArray(sourceData)) {
                     return {
                         ...target,
@@ -66,18 +68,6 @@ export function lossyCopyData<T extends EditableGridCell>(source: EditableGridCe
                 return {
                     ...target,
                     data: isTruthy(sourceData) ? true : false,
-                };
-            }
-            case GridCellKind.Image: {
-                if (isArray(sourceData)) {
-                    return {
-                        ...target,
-                        data: [sourceData[0]],
-                    };
-                }
-                return {
-                    ...target,
-                    data: [sourceData?.toString() ?? ""],
                 };
             }
             case GridCellKind.Number: {
@@ -327,8 +317,8 @@ function getResizableColumns(amount: number, group: boolean): GridColumnWithMock
                 const n = Math.round(Math.random() * 100);
                 return {
                     kind: GridCellKind.Image,
-                    data: [`https://picsum.photos/id/${n}/900/900`],
-                    displayData: [`https://picsum.photos/id/${n}/40/40`],
+                    data: `https://picsum.photos/id/${n}/900/900`,
+                    displayData: `https://picsum.photos/id/${n}/40/40`,
                     allowOverlay: true,
                     allowAdd: false,
                     readonly: true,

@@ -91,7 +91,7 @@
         "react-responsive-carousel": "^3.2.7",
         "react-syntax-highlighter": "^15.4.5",
         "resolve-typescript-plugin": "^2.0.1",
-        "storybook": "^7.6.12",
+        "storybook": "^10.1.11",
         "tsc-esm-fix": "^2.7.8",
         "typedoc": "^0.25.4",
         "typescript": "^5.1.6",

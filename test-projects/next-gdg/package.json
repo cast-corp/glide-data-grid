@@ -11,7 +11,7 @@
     "dependencies": {
         "@glideapps/glide-data-grid": "^3.4.1",
         "canvas-hypertxt": "^1.0.3",
-        "lodash": "^4.17.21",
+        "lodash": "^4.18.1",
         "marked": "^4.0.12",
         "next": "12.1.0",
         "react": "17.0.2",

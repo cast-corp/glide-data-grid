@@ -95,7 +95,7 @@
         "tsc-esm-fix": "^2.7.8",
         "typedoc": "^0.25.4",
         "typescript": "^5.1.6",
-        "vitest": "^0.34.6",
+        "vitest": "^4.1.8",
         "vitest-canvas-mock": "^0.3.3",
         "webpack": "^5.73.0"
     }

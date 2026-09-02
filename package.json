@@ -33,7 +33,7 @@
         "@babel/preset-env": "^7.16.4",
         "@babel/preset-react": "^7.8.3",
         "@babel/preset-typescript": "^7.9.0",
-        "@faker-js/faker": "^7.6.0",
+        "@faker-js/faker": "^10.5.0",
         "@linaria/babel-preset": "^4.5.3",
         "@linaria/cli": "^4.5.3",
         "@linaria/core": "^4.5.3",
